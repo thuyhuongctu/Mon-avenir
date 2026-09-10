@@ -56,7 +56,7 @@ export function SessionCard({
   return (
     <article
       className={cn(
-        "relative overflow-hidden rounded-clay bg-surface p-4 shadow-clay-sm transition-[opacity,box-shadow,transform] duration-200",
+        "relative overflow-hidden rounded-clay bg-clay-surface p-4 shadow-clay-sm transition-[opacity,box-shadow,transform] duration-200",
         done && "opacity-70",
         live && "shadow-clay",
       )}
@@ -89,8 +89,8 @@ export function SessionCard({
           className={cn(
             "relative mt-0.5 flex size-11 shrink-0 items-center justify-center rounded-clay-xs transition-[background-color,color,transform,box-shadow] duration-150 ease-out active:scale-[0.96]",
             done
-              ? "bg-accent text-accent-fg shadow-clay-sm"
-              : "bg-paper-2 text-subtle shadow-clay-inset hover:text-ink",
+              ? "bg-clay-accent text-accent-fg shadow-clay-sm"
+              : "bg-clay-inset text-subtle shadow-clay-inset hover:text-ink",
           )}
         >
           {done ? (

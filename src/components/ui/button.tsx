@@ -5,8 +5,8 @@ type Variant = "default" | "secondary" | "ghost" | "danger";
 type Size = "default" | "sm" | "lg" | "icon" | "icon-sm";
 
 const VARIANT: Record<Variant, string> = {
-  default: "bg-accent text-accent-fg shadow-clay-sm hover:-translate-y-0.5 hover:shadow-clay",
-  secondary: "bg-surface text-ink shadow-clay-sm hover:-translate-y-0.5 hover:shadow-clay",
+  default: "bg-clay-accent text-accent-fg shadow-clay-sm hover:-translate-y-0.5 hover:shadow-clay",
+  secondary: "bg-clay-surface text-ink shadow-clay-sm hover:-translate-y-0.5 hover:shadow-clay",
   ghost: "bg-transparent text-ink-soft hover:bg-paper-2",
   danger: "bg-danger text-accent-fg shadow-clay-sm hover:-translate-y-0.5 hover:shadow-clay",
 };

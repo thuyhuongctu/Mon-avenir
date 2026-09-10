@@ -74,7 +74,7 @@ export function CoursesPanel({ now }: { now: Date }) {
 
 function Stat({ label, value, hint }: { label: string; value: string; hint?: string }) {
   return (
-    <div className="rounded-clay bg-surface px-3 py-3 shadow-clay-sm">
+    <div className="rounded-clay bg-clay-surface px-3 py-3 shadow-clay-sm">
       <p className="text-[11px] font-medium uppercase tracking-wider text-subtle">{label}</p>
       <p className="mt-1 font-display text-2xl tabular-nums leading-none text-ink">{value}</p>
       {hint && <p className="mt-1 text-[11px] text-subtle">{hint}</p>}
@@ -106,7 +106,7 @@ function CourseBlock({
   const camp = campusOf(campus);
 
   return (
-    <article className="rounded-clay bg-surface shadow-clay-sm">
+    <article className="rounded-clay bg-clay-surface shadow-clay-sm">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}

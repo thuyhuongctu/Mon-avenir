@@ -30,7 +30,7 @@ export function TodoList({
   );
 
   return (
-    <div className="rounded-clay bg-surface p-3 shadow-clay-sm sm:p-4">
+    <div className="rounded-clay bg-clay-surface p-3 shadow-clay-sm sm:p-4">
       {todos.length === 0 && (
         <p className="px-1 pb-3 text-sm text-muted">Chưa có việc cho ngày này.</p>
       )}
@@ -49,7 +49,7 @@ export function TodoList({
               <span
                 className={cn(
                   "flex size-6 shrink-0 items-center justify-center rounded-full transition-colors",
-                  todo.done ? "bg-accent text-accent-fg" : "bg-paper-2 text-subtle",
+                  todo.done ? "bg-clay-accent text-accent-fg" : "bg-paper-2 text-subtle",
                 )}
               >
                 {todo.done ? (
@@ -84,7 +84,7 @@ export function TodoList({
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="Thêm việc…"
-          className="h-11 min-w-0 flex-1 rounded-clay-xs bg-paper px-3 text-sm text-ink shadow-clay-inset outline-none placeholder:text-subtle focus:shadow-clay-inset"
+          className="h-11 min-w-0 flex-1 rounded-clay-xs bg-clay-inset px-3 text-sm text-ink shadow-clay-inset outline-none placeholder:text-subtle focus:shadow-clay-inset"
         />
         <Button type="submit" size="icon" aria-label="Thêm" disabled={!text.trim()}>
           <Plus className="size-5" />
@@ -98,7 +98,7 @@ export function TodoList({
               key={s}
               type="button"
               onClick={() => addTodo(date, s)}
-              className="rounded-full bg-paper-2 px-2.5 py-1.5 text-left text-xs text-ink-soft shadow-clay-sm transition-all hover:-translate-y-0.5 hover:text-accent"
+              className="rounded-full bg-clay-paper2 px-2.5 py-1.5 text-left text-xs text-ink-soft shadow-clay-sm transition-all hover:-translate-y-0.5 hover:text-accent"
             >
               + {s}
             </button>
