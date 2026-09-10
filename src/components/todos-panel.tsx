@@ -47,7 +47,7 @@ export function TodosPanel({ now }: { now: Date }) {
               onClick={() => setSelected(d)}
               className={cn(
                 "flex w-[4.5rem] shrink-0 flex-col items-center rounded-clay-xs px-2 py-2 text-center transition-all duration-150",
-                isSel ? "bg-accent text-accent-fg shadow-clay-sm" : "bg-surface shadow-clay-sm",
+                isSel ? "bg-clay-accent text-accent-fg shadow-clay-sm" : "bg-clay-surface shadow-clay-sm",
               )}
             >
               <span className={cn("text-[11px]", isSel ? "text-accent-fg/75" : "text-subtle")}>

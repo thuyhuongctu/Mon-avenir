@@ -38,6 +38,38 @@
   --shadow-clay-inset: inset 5px 5px 11px color-mix(in oklab, var(--color-ink) 22%, transparent),
     inset -4px -4px 9px color-mix(in oklab, white 75%, transparent);
 
+  /* Nền gradient mô phỏng khối đất sét nổi/lõm — dùng cùng các token shadow-clay-* ở trên. */
+  --background-image-clay-surface: linear-gradient(
+    155deg,
+    color-mix(in oklab, white 45%, var(--color-surface)) 0%,
+    var(--color-surface) 45%,
+    color-mix(in oklab, var(--color-ink) 5%, var(--color-surface)) 100%
+  );
+  --background-image-clay-paper2: linear-gradient(
+    155deg,
+    color-mix(in oklab, white 50%, var(--color-paper-2)) 0%,
+    var(--color-paper-2) 45%,
+    color-mix(in oklab, var(--color-ink) 6%, var(--color-paper-2)) 100%
+  );
+  --background-image-clay-accent: linear-gradient(
+    155deg,
+    color-mix(in oklab, white 22%, var(--color-accent)) 0%,
+    var(--color-accent) 55%,
+    color-mix(in oklab, black 14%, var(--color-accent)) 100%
+  );
+  --background-image-clay-accent-inset: linear-gradient(
+    155deg,
+    color-mix(in oklab, black 16%, var(--color-accent)) 0%,
+    var(--color-accent) 55%,
+    color-mix(in oklab, white 14%, var(--color-accent)) 100%
+  );
+  --background-image-clay-inset: linear-gradient(
+    155deg,
+    color-mix(in oklab, var(--color-ink) 7%, var(--color-paper)) 0%,
+    var(--color-paper) 50%,
+    color-mix(in oklab, white 35%, var(--color-paper)) 100%
+  );
+
   --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 

@@ -91,7 +91,7 @@ export function TodayPanel({ now }: { now: Date }) {
         {sessions.length > 0 && (
           <div className="mt-4 flex items-center gap-3">
             <div
-              className="h-2 flex-1 overflow-hidden rounded-full bg-paper-2 shadow-clay-inset"
+              className="h-2 flex-1 overflow-hidden rounded-full bg-clay-inset shadow-clay-inset"
               role="progressbar"
               aria-valuenow={doneCount}
               aria-valuemax={sessions.length}
@@ -169,7 +169,7 @@ function EmptyDay({
   nextLabel?: string;
 }) {
   return (
-    <div className="rounded-clay bg-surface px-5 py-8 text-center shadow-clay-sm">
+    <div className="rounded-clay bg-clay-surface px-5 py-8 text-center shadow-clay-sm">
       <Sparkles className="mx-auto size-6 text-subtle" />
       <p className="mt-3 font-display text-lg text-ink">Trống lịch giảng</p>
       <p className="mt-1 text-sm text-muted">

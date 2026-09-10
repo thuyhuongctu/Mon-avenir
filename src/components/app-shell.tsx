@@ -76,7 +76,7 @@ export function AppShell({
       <main className="min-h-0">{children}</main>
 
       <nav
-        className="fixed inset-x-0 bottom-0 z-30 mx-auto flex max-w-md items-center justify-around gap-1 rounded-clay bg-surface px-2 py-2 shadow-clay sm:bottom-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
+        className="fixed inset-x-0 bottom-0 z-30 mx-auto flex max-w-md items-center justify-around gap-1 rounded-clay bg-clay-surface px-2 py-2 shadow-clay sm:bottom-4 sm:left-1/2 sm:right-auto sm:-translate-x-1/2"
         aria-label="Điều hướng chính"
       >
         {TABS.map(({ id, label, icon: Icon }) => {
@@ -89,7 +89,7 @@ export function AppShell({
               className={cn(
                 "flex flex-1 flex-col items-center gap-0.5 rounded-clay-xs px-3 py-1.5 text-[11px] font-medium transition-all duration-150 sm:flex-none sm:px-4",
                 active
-                  ? "bg-accent text-accent-fg shadow-clay-inset"
+                  ? "bg-clay-accent-inset text-accent-fg shadow-clay-inset"
                   : "text-subtle hover:text-ink",
               )}
             >

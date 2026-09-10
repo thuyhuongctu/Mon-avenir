@@ -107,7 +107,7 @@ export function WeekPanel({ now }: { now: Date }) {
               onClick={() => setSelected(d)}
               className={cn(
                 "flex min-h-16 flex-col items-center gap-1 rounded-clay-xs px-1 py-2 text-center transition-all duration-150",
-                isSel ? "bg-accent text-accent-fg shadow-clay-sm" : "bg-surface shadow-clay-sm hover:-translate-y-0.5",
+                isSel ? "bg-clay-accent text-accent-fg shadow-clay-sm" : "bg-clay-surface shadow-clay-sm hover:-translate-y-0.5",
               )}
             >
               <span className={cn("text-[11px] font-medium", isSel ? "text-accent-fg/80" : "text-subtle")}>
@@ -157,7 +157,7 @@ export function WeekPanel({ now }: { now: Date }) {
           {prettyDate(selected)}
         </h2>
         {selectedList.length === 0 ? (
-          <p className="rounded-clay bg-surface px-4 py-6 text-sm text-muted shadow-clay-sm">
+          <p className="rounded-clay bg-clay-surface px-4 py-6 text-sm text-muted shadow-clay-sm">
             Không có buổi nào.
           </p>
         ) : (
@@ -199,7 +199,7 @@ function WeekGrid({
   onSelect: (d: string) => void;
 }) {
   return (
-    <div className="hidden overflow-x-auto rounded-clay bg-surface shadow-clay-sm lg:block">
+    <div className="hidden overflow-x-auto rounded-clay bg-clay-surface shadow-clay-sm lg:block">
       <div className="grid min-w-[880px] grid-cols-[56px_repeat(7,1fr)]">
         <div className="border-b border-black/5" />
         {days.map((d) => (
