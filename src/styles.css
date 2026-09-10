@@ -26,6 +26,11 @@
   --color-danger: #8f2d2d;
   --color-warn: #8a5a1a;
 
+  /* Màu thương hiệu "Hương AI" — hồng sen, theo brand-spec của je-mappelle-huong. */
+  --color-brand: #c4596b;
+  --color-brand-fg: #fffdf8;
+  --color-brand-soft: #f6dee2;
+
   /* Bo góc & bóng "đất sét" — cùng công thức với Chansonia (bản paper/light). */
   --radius-clay: 28px;
   --radius-clay-sm: 20px;
@@ -56,6 +61,12 @@
     color-mix(in oklab, white 22%, var(--color-accent)) 0%,
     var(--color-accent) 55%,
     color-mix(in oklab, black 14%, var(--color-accent)) 100%
+  );
+  --background-image-clay-brand: linear-gradient(
+    155deg,
+    color-mix(in oklab, white 30%, var(--color-brand)) 0%,
+    var(--color-brand) 55%,
+    color-mix(in oklab, black 10%, var(--color-brand)) 100%
   );
   --background-image-clay-accent-inset: linear-gradient(
     155deg,

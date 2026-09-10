@@ -11,6 +11,13 @@ Lịch giảng, việc cần làm và môn học của Đỗ Thùy Hương (VLUT
 
 Dữ liệu lưu cục bộ trên trình duyệt (`zustand/persist`), không cần đăng nhập hay máy chủ.
 
+## Thương hiệu
+
+Huy hiệu **Hương AI** ở góc trên bên phải là nhân vật đồng hành của hệ sinh thái
+[«Je m'appelle Hương»](https://thuyhuongctu.github.io/Je-mappelle-Huong/) —
+chỉ mang tính thương hiệu/trang trí, không phải trợ lý chat. Ảnh (`public/brand/huong-ai.webp`)
+và màu hồng sen (`--color-brand`) lấy từ repo gốc `thuyhuongctu/Je-mappelle-Huong`.
+
 ## Phát triển
 
 ```bash
