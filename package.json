@@ -1,0 +1,29 @@
+{
+  "name": "mon-avenir",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Mon Avenir — lịch giảng, việc cần làm và môn học của Đỗ Thùy Hương",
+  "author": "Đỗ Thùy Hương <thuyhuongctu@gmail.com>",
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.469.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "zustand": "^5.0.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "tailwindcss": "^4.0.0",
+    "typescript": "~5.7.2",
+    "vite": "^6.0.0"
+  }
+}

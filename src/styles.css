@@ -1,0 +1,146 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", "Times New Roman", serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --color-paper: #f3efe6;
+  --color-paper-2: #ebe4d6;
+  --color-surface: #fffcf7;
+  --color-ink: #1c1914;
+  --color-ink-soft: #3a352e;
+  --color-muted: #6f6a62;
+  --color-subtle: #90897e;
+
+  --color-accent: #1e4d46;
+  --color-accent-fg: #f3efe6;
+  --color-accent-soft: #dce8e4;
+  --color-ctu: #1d4a78;
+  --color-ctu-soft: #d9e4f0;
+  --color-vlute: #1e4d46;
+  --color-vlute-soft: #dce8e4;
+  --color-live: #9a3412;
+  --color-live-soft: #f3e0d4;
+  --color-done: #3f6b4e;
+  --color-danger: #8f2d2d;
+  --color-warn: #8a5a1a;
+
+  /* Bo góc & bóng "đất sét" — cùng công thức với Chansonia (bản paper/light). */
+  --radius-clay: 28px;
+  --radius-clay-sm: 20px;
+  --radius-clay-xs: 14px;
+
+  --shadow-clay: 10px 10px 22px color-mix(in oklab, var(--color-ink) 20%, transparent),
+    -8px -8px 16px color-mix(in oklab, white 95%, transparent);
+  --shadow-clay-sm: 5px 5px 12px color-mix(in oklab, var(--color-ink) 18%, transparent),
+    -4px -4px 9px color-mix(in oklab, white 90%, transparent);
+  --shadow-clay-inset: inset 5px 5px 11px color-mix(in oklab, var(--color-ink) 22%, transparent),
+    inset -4px -4px 9px color-mix(in oklab, white 75%, transparent);
+
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  body {
+    min-height: 100dvh;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+  }
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+.paper-bg {
+  background-color: var(--color-paper);
+  background-image: radial-gradient(
+    ellipse 90% 40% at 50% -8%,
+    color-mix(in oklab, var(--color-accent) 7%, transparent),
+    transparent 60%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@keyframes live-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.live-dot {
+  animation: live-pulse 1.6s ease-in-out infinite;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.rise-in {
+  animation: rise-in 400ms var(--ease-smooth-out) both;
+}
+
+.rise-in:nth-child(1) {
+  animation-delay: 0ms;
+}
+.rise-in:nth-child(2) {
+  animation-delay: 40ms;
+}
+.rise-in:nth-child(3) {
+  animation-delay: 80ms;
+}
+.rise-in:nth-child(4) {
+  animation-delay: 120ms;
+}
+.rise-in:nth-child(5) {
+  animation-delay: 160ms;
+}
+.rise-in:nth-child(6) {
+  animation-delay: 200ms;
+}
+.rise-in:nth-child(7) {
+  animation-delay: 240ms;
+}
+.rise-in:nth-child(8) {
+  animation-delay: 280ms;
+}
