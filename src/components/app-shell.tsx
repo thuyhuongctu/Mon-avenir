@@ -6,6 +6,7 @@ import {
   Sun,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { HuongAiBadge } from "@/components/huong-ai-badge";
 import { CAMPUSES, LECTURER } from "@/lib/schedule-data";
 import { usePlanner, type CampusFilter } from "@/lib/store";
 import { cn } from "@/lib/utils";
@@ -49,6 +50,7 @@ export function AppShell({
               {LECTURER.title} {LECTURER.name}
             </p>
           </div>
+          <HuongAiBadge />
           <div className="hidden items-center gap-1 sm:flex">
             <Badge tone="vlute">{CAMPUSES.vlute.role}</Badge>
             <Badge tone="ctu">{CAMPUSES.ctu.role}</Badge>
