@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Mon Avenir</string>
+    <string name="title_activity_main">Mon Avenir</string>
+    <string name="package_name">com.thuyhuongctu.monavenir</string>
+    <string name="custom_url_scheme">com.thuyhuongctu.monavenir</string>
+</resources>

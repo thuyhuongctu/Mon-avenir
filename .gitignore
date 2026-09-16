@@ -3,3 +3,16 @@ dist
 .DS_Store
 *.local
 *.tsbuildinfo
+
+# Android build output
+android/build/
+android/app/build/
+android/capacitor-cordova-android-plugins/build/
+android/.gradle/
+android/local.properties
+
+# Signing material — never commit
+android/upload-keystore.jks
+android/keystore.properties
+*.jks
+*.keystore
