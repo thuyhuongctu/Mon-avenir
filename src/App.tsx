@@ -1,22 +1,36 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { AppShell, type TabId } from "@/components/app-shell";
 import { CoursesPanel } from "@/components/courses-panel";
 import { TodayPanel } from "@/components/today-panel";
 import { TodosPanel } from "@/components/todos-panel";
 import { WeekPanel } from "@/components/week-panel";
 import { useNow, usePlannerHydrated } from "@/lib/hooks";
+import { setSchedule } from "@/lib/schedule";
+import { COURSES, SLOTS } from "@/lib/schedule-data";
+import { usePlanner } from "@/lib/store";
 
 export default function App() {
   const now = useNow(20000);
   const [tab, setTab] = useState<TabId>("today");
   usePlannerHydrated();
+  const imports = usePlanner((s) => s.imports);
+  const hideBuiltin = usePlanner((s) => s.hideBuiltin);
+
+  // Dựng lại lịch đang dùng trước khi các tab render; key đổi để tab tính lại.
+  const scheduleKey = useMemo(() => {
+    setSchedule(
+      [...(hideBuiltin ? [] : COURSES), ...imports.flatMap((i) => i.courses)],
+      [...(hideBuiltin ? [] : SLOTS), ...imports.flatMap((i) => i.slots)],
+    );
+    return `${hideBuiltin}-${imports.map((i) => i.id).join(",")}`;
+  }, [imports, hideBuiltin]);
 
   return (
     <AppShell tab={tab} onTab={setTab}>
-      {tab === "today" && <TodayPanel now={now} />}
-      {tab === "week" && <WeekPanel now={now} />}
-      {tab === "todos" && <TodosPanel now={now} />}
-      {tab === "courses" && <CoursesPanel now={now} />}
+      {tab === "today" && <TodayPanel key={scheduleKey} now={now} />}
+      {tab === "week" && <WeekPanel key={scheduleKey} now={now} />}
+      {tab === "todos" && <TodosPanel key={scheduleKey} now={now} />}
+      {tab === "courses" && <CoursesPanel key={scheduleKey} now={now} />}
     </AppShell>
   );
 }
