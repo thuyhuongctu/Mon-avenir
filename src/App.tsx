@@ -8,11 +8,12 @@ import { useNow, usePlannerHydrated } from "@/lib/hooks";
 import { setSchedule } from "@/lib/schedule";
 import { COURSES, SLOTS } from "@/lib/schedule-data";
 import { usePlanner } from "@/lib/store";
+import { useReminders } from "@/lib/use-reminders";
 
 export default function App() {
   const now = useNow(20000);
   const [tab, setTab] = useState<TabId>("today");
-  usePlannerHydrated();
+  const hydrated = usePlannerHydrated();
   const imports = usePlanner((s) => s.imports);
   const hideBuiltin = usePlanner((s) => s.hideBuiltin);
 
@@ -24,12 +25,13 @@ export default function App() {
     );
     return `${hideBuiltin}-${imports.map((i) => i.id).join(",")}`;
   }, [imports, hideBuiltin]);
+  const reminders = useReminders(now, scheduleKey, hydrated);
 
   return (
     <AppShell tab={tab} onTab={setTab}>
       {tab === "today" && <TodayPanel key={scheduleKey} now={now} />}
       {tab === "week" && <WeekPanel key={scheduleKey} now={now} />}
-      {tab === "todos" && <TodosPanel key={scheduleKey} now={now} />}
+      {tab === "todos" && <TodosPanel key={scheduleKey} now={now} reminders={reminders} />}
       {tab === "courses" && <CoursesPanel key={scheduleKey} now={now} />}
     </AppShell>
   );

@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import { uid } from "./utils";
 import type { CampusId } from "./schedule-data";
 import type { ImportedSchedule } from "./import-schedule";
+import { DEFAULT_NOTIFY, type NotifySettings } from "./notify";
 
 export type Todo = {
   id: string;
@@ -31,6 +32,7 @@ type PlannerState = {
   imports: ImportedSchedule[];
   /** Ẩn lịch có sẵn trong code (khi đã nhập lịch học kỳ mới). */
   hideBuiltin: boolean;
+  notify: NotifySettings;
   campusFilter: CampusFilter;
   toggleSession: (id: string, next: boolean) => void;
   clearSession: (id: string) => void;
@@ -44,6 +46,7 @@ type PlannerState = {
   addImport: (imp: ImportedSchedule) => void;
   removeImport: (id: string) => void;
   setHideBuiltin: (hide: boolean) => void;
+  setNotify: (patch: Partial<NotifySettings>) => void;
   seedTodos: (date: string, texts: string[]) => void;
   setCampusFilter: (f: CampusFilter) => void;
   completeDayTodos: (date: string, done: boolean) => void;
@@ -59,6 +62,7 @@ export const usePlanner = create<PlannerState>()(
       sessionNotes: {},
       imports: [],
       hideBuiltin: false,
+      notify: DEFAULT_NOTIFY,
       campusFilter: "all",
       toggleSession: (id, next) =>
         set((s) => ({
@@ -126,6 +130,7 @@ export const usePlanner = create<PlannerState>()(
       removeImport: (id) =>
         set((s) => ({ imports: s.imports.filter((i) => i.id !== id) })),
       setHideBuiltin: (hideBuiltin) => set({ hideBuiltin }),
+      setNotify: (patch) => set((s) => ({ notify: { ...s.notify, ...patch } })),
       seedTodos: (date, texts) =>
         set((s) => {
           if (s.seeded[date]) return s;
