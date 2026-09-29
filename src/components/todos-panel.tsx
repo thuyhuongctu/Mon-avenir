@@ -1,13 +1,21 @@
 import { useMemo, useState } from "react";
 import { CalendarSync } from "@/components/calendar-sync";
 import { Mascot } from "@/components/mascot";
+import { NotifySettingsCard } from "@/components/notify-settings";
+import type { Reminder } from "@/lib/notify";
 import { TodoList } from "@/components/todo-list";
 import { occurrencesOn, suggestedTodos } from "@/lib/schedule";
 import { usePlanner } from "@/lib/store";
 import { addDaysISO, dateKey, prettyDate, weekdayShort } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
-export function TodosPanel({ now }: { now: Date }) {
+export function TodosPanel({
+  now,
+  reminders,
+}: {
+  now: Date;
+  reminders: { scheduled: number; next?: Reminder };
+}) {
   const today = dateKey(now);
   const [selected, setSelected] = useState(today);
   const todosMap = usePlanner((s) => s.todos);
@@ -69,6 +77,8 @@ export function TodosPanel({ now }: { now: Date }) {
         <h2 className="mb-3 font-display text-xl tracking-tight">{prettyDate(selected)}</h2>
         <TodoList date={selected} suggestions={suggestedTodos(sessions)} />
       </div>
+
+      <NotifySettingsCard scheduled={reminders.scheduled} next={reminders.next} />
 
       <CalendarSync today={today} />
     </div>

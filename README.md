@@ -16,6 +16,9 @@ Vào tab **Actions → Build Android APK → lần chạy mới nhất**, tải 
 - **Môn** — tổng quan các môn đang dạy, số buổi còn lại, danh sách buổi theo môn.
 - **Ghi chú tay** — ghi chú cho từng việc và từng buổi dạy; đặt giờ nhắc cho việc.
 - **Google Calendar** (huongdt@vlute.edu.vn) — thêm từng việc/buổi dạy, hoặc xuất file `.ics` (lịch giảng, việc, ghi chú, kèm nhắc) để nhập vào lịch.
+- **Thông báo** (tab Việc) — nhắc trước giờ giảng (5–90 phút), tóm tắt lịch mỗi sáng, nhắc việc có đặt giờ.
+  Bản Android hẹn sẵn trong máy (`@capacitor/local-notifications`, 14 ngày tới) nên nhận được cả khi tắt app;
+  bản web chỉ hiện khi app đang mở.
 - **Nhập lịch từ file** (tab Môn) — thêm lịch học kỳ mới từ file `.csv` (Excel → *Lưu thành CSV UTF-8*) hoặc `.ics`
   (Google Calendar, Outlook). Có file mẫu CSV; cột nhận diện: Mã HP, Tên học phần, Nhóm, Lớp, Sĩ số, Thứ, Tiết,
   Bắt đầu, Kết thúc, Phòng, Tuần (`1-12`, `1,5,9`, `38-39-40`), Ngày (`16/09, 23/09`), Loại. Có thể ẩn lịch có sẵn.
