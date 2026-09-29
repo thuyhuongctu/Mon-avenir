@@ -3,12 +3,14 @@ import { useEffect, useState } from "react";
 import { Mascot } from "@/components/mascot";
 import { Button } from "@/components/ui/button";
 import {
+  diagnostics,
   exactAlarmGranted,
   isNative,
   openExactAlarmSettings,
   permissionState,
   requestPermission,
   sendTest,
+  type NotifyDiagnostics,
   type Reminder,
 } from "@/lib/notify";
 import { usePlanner } from "@/lib/store";
@@ -17,24 +19,35 @@ import { cn } from "@/lib/utils";
 const field =
   "h-9 rounded-clay-xs bg-clay-inset px-2 text-sm text-ink shadow-clay-inset outline-none";
 
+const PERM_LABEL: Record<string, string> = {
+  granted: "đã cho phép",
+  denied: "bị chặn",
+  prompt: "chưa hỏi",
+  unsupported: "không hỗ trợ",
+};
+
 export function NotifySettingsCard({
   scheduled,
   next,
+  error,
 }: {
   scheduled: number;
   next?: Reminder;
+  error?: string;
 }) {
   const s = usePlanner((st) => st.notify);
   const setNotify = usePlanner((st) => st.setNotify);
   const [perm, setPerm] = useState<string>("prompt");
   const [exact, setExact] = useState(true);
   const [msg, setMsg] = useState("");
+  const [diag, setDiag] = useState<NotifyDiagnostics | null>(null);
   const native = isNative();
 
   useEffect(() => {
     void permissionState().then(setPerm);
     void exactAlarmGranted().then(setExact);
-  }, [s.enabled]);
+    void diagnostics().then(setDiag);
+  }, [s.enabled, scheduled]);
 
   async function toggle() {
     setMsg("");
@@ -167,8 +180,12 @@ export function NotifySettingsCard({
               size="sm"
               variant="secondary"
               onClick={async () => {
-                await sendTest();
-                setMsg("Đã gửi — thông báo thử sẽ hiện sau 5 giây.");
+                try {
+                  setMsg(await sendTest());
+                } catch (e) {
+                  setMsg(`Không gửi được: ${e instanceof Error ? e.message : String(e)}`);
+                }
+                setDiag(await diagnostics());
               }}
             >
               <Send className="size-4" />
@@ -176,6 +193,22 @@ export function NotifySettingsCard({
             </Button>
           </div>
         </div>
+      )}
+
+      {s.enabled && diag && (
+        <p className="mt-3 text-[11px] leading-relaxed text-subtle">
+          Chẩn đoán: {diag.platform} · quyền {PERM_LABEL[diag.permission] ?? diag.permission}
+          {diag.pending !== undefined && ` · ${diag.pending} thông báo đang chờ trong máy`}
+          {diag.exact !== undefined && ` · báo đúng giờ: ${diag.exact ? "bật" : "tắt"}`}
+          {diag.serviceWorker !== undefined &&
+            ` · service worker: ${diag.serviceWorker ? "có" : "chưa có"}`}
+        </p>
+      )}
+      {error && (
+        <p className="mt-2 flex items-start gap-1.5 text-xs text-danger">
+          <BellOff className="mt-px size-3.5 shrink-0" />
+          Lỗi hẹn thông báo: {error}
+        </p>
       )}
 
       {!s.enabled && perm === "denied" && (

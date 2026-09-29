@@ -13,6 +13,7 @@ export function useReminders(now: Date, scheduleKey: string, hydrated: boolean) 
   const sessionNotes = usePlanner((s) => s.sessionNotes);
   const today = dateKey(now);
   const [scheduled, setScheduled] = useState(0);
+  const [error, setError] = useState("");
 
   // Chỉ dựng lại khi dữ liệu hoặc ngày đổi, không phải mỗi 20 giây.
   const reminders = useMemo(
@@ -24,8 +25,14 @@ export function useReminders(now: Date, scheduleKey: string, hydrated: boolean) 
     if (!hydrated || !isNative()) return;
     const t = setTimeout(() => {
       syncNative(reminders)
-        .then(setScheduled)
-        .catch(() => setScheduled(0));
+        .then((n) => {
+          setScheduled(n);
+          setError("");
+        })
+        .catch((e: unknown) => {
+          setScheduled(0);
+          setError(e instanceof Error ? e.message : String(e));
+        });
     }, 800);
     return () => clearTimeout(t);
   }, [hydrated, reminders]);
@@ -36,10 +43,12 @@ export function useReminders(now: Date, scheduleKey: string, hydrated: boolean) 
     const t = now.getTime();
     for (const r of reminders) {
       const at = r.at.getTime();
-      if (at > lastCheck.current && at <= t) showWeb(r);
+      if (at > lastCheck.current && at <= t) {
+        showWeb(r).catch((e: unknown) => setError(e instanceof Error ? e.message : String(e)));
+      }
     }
     lastCheck.current = t;
   }, [now, reminders, settings.enabled]);
 
-  return { scheduled: isNative() ? scheduled : reminders.length, next: reminders[0] };
+  return { scheduled: isNative() ? scheduled : reminders.length, next: reminders[0], error };
 }
