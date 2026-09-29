@@ -1,3 +1,4 @@
+import { Mascot } from "@/components/mascot";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useMemo, useState } from "react";
 import { SessionCard, isDone } from "@/components/session-card";
@@ -157,9 +158,10 @@ export function WeekPanel({ now }: { now: Date }) {
           {prettyDate(selected)}
         </h2>
         {selectedList.length === 0 ? (
-          <p className="rounded-clay bg-clay-surface px-4 py-6 text-sm text-muted shadow-clay-sm">
-            Không có buổi nào.
-          </p>
+          <div className="flex items-center gap-3 rounded-clay bg-clay-surface px-4 py-4 shadow-clay-sm">
+            <Mascot name="rong-suy-nghi" float={false} className="w-20 shrink-0" />
+            <p className="text-sm text-muted">Không có buổi nào — ngày để đọc và viết bài.</p>
+          </div>
         ) : (
           selectedList.map((occ) => (
             <SessionCard
