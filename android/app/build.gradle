@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// CI truyền VERSION_CODE (số lần chạy workflow) để bản mới cài đè bản cũ.
+def ciVersionCode = (System.getenv("VERSION_CODE") ?: "1").toInteger()
+
 android {
     namespace = "com.thuyhuongctu.monavenir"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -7,8 +10,8 @@ android {
         applicationId "com.thuyhuongctu.monavenir"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
+        versionCode ciVersionCode
+        versionName "1.0.${ciVersionCode}"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
@@ -16,7 +19,20 @@ android {
             ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~'
         }
     }
+    signingConfigs {
+        // Khóa debug cố định (không bí mật) để mọi bản build ký giống nhau,
+        // cài bản mới đè bản cũ mà không phải gỡ app và mất dữ liệu.
+        debug {
+            storeFile file("mon-avenir-debug.keystore")
+            storePassword "android"
+            keyAlias "androiddebugkey"
+            keyPassword "android"
+        }
+    }
     buildTypes {
+        debug {
+            signingConfig signingConfigs.debug
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
