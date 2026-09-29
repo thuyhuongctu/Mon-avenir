@@ -178,7 +178,7 @@ export function suggestedTodos(sessions: Occurrence[]): string[] {
   for (const s of sessions) {
     let text: string;
     if (s.kind === "advising") text = `Sinh hoạt lớp ${s.groupCode}`;
-    else if (s.kind === "thesis") text = `Liên hệ SV khóa luận · ${s.groupCode}`;
+    else if (s.kind === "thesis") text = `Liên hệ SV ${s.name.toLowerCase()} · ${s.groupCode}`;
     else if (s.role === "tg")
       text = `Hỗ trợ giảng ${s.code} · ${s.groupCode}`;
     else text = `Soạn bài ${s.code} · ${s.groupCode}`;
