@@ -185,18 +185,36 @@ export async function syncNative(reminders: Reminder[]): Promise<number> {
   return list.length;
 }
 
-/** Web: chỉ hiện được khi app đang mở. */
-export function showWeb(r: Pick<Reminder, "title" | "body">) {
-  if (!("Notification" in window) || Notification.permission !== "granted") return;
-  const icon = `${import.meta.env.BASE_URL}brand/rong-hoc-gia.webp`;
-  try {
-    new Notification(r.title, { body: r.body, icon, badge: icon });
-  } catch {
-    // Chrome Android không cho new Notification() ngoài service worker.
-  }
+/** Đăng ký service worker (web) — cần để hiện thông báo trên Chrome Android. */
+export function registerServiceWorker() {
+  if (isNative() || !("serviceWorker" in navigator)) return;
+  const base = import.meta.env.BASE_URL;
+  navigator.serviceWorker.register(`${base}sw.js`, { scope: base }).catch(() => {});
 }
 
-export async function sendTest() {
+/** Web: chỉ hiện được khi app đang mở. Ném lỗi nếu không hiện được. */
+export async function showWeb(r: Pick<Reminder, "title" | "body">) {
+  if (!("Notification" in window)) throw new Error("Trình duyệt này không hỗ trợ thông báo.");
+  if (Notification.permission !== "granted") throw new Error("Chưa được cấp quyền thông báo.");
+  const icon = `${import.meta.env.BASE_URL}brand/rong-hoc-gia.webp`;
+  const opts: NotificationOptions = { body: r.body, icon, badge: icon, tag: r.title };
+  if ("serviceWorker" in navigator) {
+    const reg =
+      (await navigator.serviceWorker.getRegistration(import.meta.env.BASE_URL)) ??
+      (await Promise.race([
+        navigator.serviceWorker.ready,
+        new Promise<undefined>((res) => setTimeout(() => res(undefined), 3000)),
+      ]));
+    if (reg) {
+      await reg.showNotification(r.title, opts);
+      return;
+    }
+  }
+  new Notification(r.title, opts);
+}
+
+/** Gửi thử: Android hẹn sau 5 giây (để kịp tắt màn hình); web hiện ngay. */
+export async function sendTest(): Promise<string> {
   const r = {
     id: 1,
     at: new Date(Date.now() + 5000),
@@ -204,11 +222,42 @@ export async function sendTest() {
     body: "Thông báo đã hoạt động. Rồng xanh sẽ nhắc cô trước giờ dạy.",
   };
   if (isNative()) {
+    const granted = await requestPermission();
+    if (!granted) throw new Error("Android đang chặn thông báo của Mon Avenir.");
     await ensureChannel();
-    await LocalNotifications.schedule({
+    const res = await LocalNotifications.schedule({
       notifications: [{ ...r, channelId: "lich-giang", schedule: { at: r.at, allowWhileIdle: true } }],
     });
-  } else {
-    setTimeout(() => showWeb(r), 5000);
+    return res.warning
+      ? `Đã hẹn sau 5 giây (có thể trễ: ${res.warning.message}).`
+      : "Đã hẹn — thông báo thử sẽ hiện sau 5 giây.";
   }
+  await showWeb(r);
+  return "Đã gửi thông báo thử.";
+}
+
+export type NotifyDiagnostics = {
+  platform: string;
+  permission: string;
+  pending?: number;
+  exact?: boolean;
+  serviceWorker?: boolean;
+};
+
+export async function diagnostics(): Promise<NotifyDiagnostics> {
+  const permission = await permissionState();
+  if (isNative()) {
+    let pending: number | undefined;
+    try {
+      pending = (await LocalNotifications.getPending()).notifications.length;
+    } catch {
+      pending = undefined;
+    }
+    return { platform: "App Android", permission, pending, exact: await exactAlarmGranted() };
+  }
+  const reg =
+    "serviceWorker" in navigator
+      ? await navigator.serviceWorker.getRegistration(import.meta.env.BASE_URL)
+      : undefined;
+  return { platform: "Trình duyệt (web)", permission, serviceWorker: Boolean(reg) };
 }

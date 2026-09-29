@@ -14,7 +14,7 @@ export function TodosPanel({
   reminders,
 }: {
   now: Date;
-  reminders: { scheduled: number; next?: Reminder };
+  reminders: { scheduled: number; next?: Reminder; error?: string };
 }) {
   const today = dateKey(now);
   const [selected, setSelected] = useState(today);
@@ -78,7 +78,11 @@ export function TodosPanel({
         <TodoList date={selected} suggestions={suggestedTodos(sessions)} />
       </div>
 
-      <NotifySettingsCard scheduled={reminders.scheduled} next={reminders.next} />
+      <NotifySettingsCard
+        scheduled={reminders.scheduled}
+        next={reminders.next}
+        error={reminders.error}
+      />
 
       <CalendarSync today={today} />
     </div>
