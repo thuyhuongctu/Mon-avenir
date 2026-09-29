@@ -1,15 +1,17 @@
+import { asset } from "@/components/mascot";
+
 /**
- * Huy hiệu thương hiệu "Hương AI" — nhân vật đồng hành của hệ sinh thái
- * «Je m'appelle Hương» (xem thuyhuongctu.github.io/Je-mappelle-Huong).
+ * Huy hiệu thương hiệu "Hương AI" — chân dung đất sét của Thùy Hương,
+ * nhân vật đồng hành của hệ sinh thái «Je m'appelle Hương».
  * Chỉ mang tính thương hiệu/trang trí — không phải trợ lý chat thật.
  */
 export function HuongAiBadge() {
   return (
     <div className="flex items-center gap-2">
-      <span className="relative flex size-9 shrink-0 items-center justify-center rounded-full bg-clay-brand shadow-clay-sm sm:size-10">
+      <span className="relative flex size-11 shrink-0 items-center justify-center rounded-full bg-clay-brand p-0.5 shadow-clay-sm sm:size-12">
         <img
-          src="/brand/huong-ai.webp"
-          alt="Hương AI"
+          src={asset("brand/huong-chan-dung.webp")}
+          alt="Chân dung đất sét Thùy Hương"
           className="size-full rounded-full object-cover object-top"
         />
         <span

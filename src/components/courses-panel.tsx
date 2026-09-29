@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import { ChevronDown, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { Mascot } from "@/components/mascot";
 import {
   ALL_OCCURRENCES,
   COURSES,
@@ -31,7 +32,12 @@ export function CoursesPanel({ now }: { now: Date }) {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-4 pb-28 pt-4 sm:px-6">
-      <header>
+      <header className="relative overflow-hidden rounded-clay bg-clay-surface p-5 pr-28 shadow-clay sm:pr-36">
+        <Mascot
+          name="huong-aodai"
+          float={false}
+          className="absolute right-3 top-3 w-24 sm:right-6 sm:w-28"
+        />
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-subtle">
           Năm học 2026 – 2027 · HK1
         </p>

@@ -9,6 +9,7 @@ import {
   Trash2,
 } from "lucide-react";
 import { useState, type FormEvent } from "react";
+import { Mascot } from "@/components/mascot";
 import { Button } from "@/components/ui/button";
 import { todoGcalUrl } from "@/lib/gcal";
 import { usePlanner, EMPTY_TODOS, type Todo } from "@/lib/store";
@@ -40,7 +41,10 @@ export function TodoList({
   return (
     <div className="rounded-clay bg-clay-surface p-3 shadow-clay-sm sm:p-4">
       {todos.length === 0 && (
-        <p className="px-1 pb-3 text-sm text-muted">Chưa có việc cho ngày này.</p>
+        <div className="flex items-center gap-3 px-1 pb-3">
+          <Mascot name="rong-yeu-thuong" float={false} className="w-16 shrink-0" />
+          <p className="text-sm text-muted">Chưa có việc cho ngày này — nghỉ ngơi chút nhé.</p>
+        </div>
       )}
       <ul className="flex flex-col gap-0.5">
         {todos.map((todo) => (

@@ -1,4 +1,5 @@
-import { CheckCheck, ListPlus, Sparkles } from "lucide-react";
+import { CheckCheck, ListPlus } from "lucide-react";
+import { Mascot, type MascotName } from "@/components/mascot";
 import { useEffect } from "react";
 import { usePlannerHydrated } from "@/lib/hooks";
 import { SessionCard, isDone } from "@/components/session-card";
@@ -77,9 +78,22 @@ export function TodayPanel({ now }: { now: Date }) {
     statusLine = "Hết lịch hôm nay";
   }
 
+  const mascot: MascotName =
+    dayComplete && sessions.length > 0
+      ? "rong-co-vu"
+      : upcoming
+        ? "rong-hoc-gia"
+        : sessions.length > 0
+          ? "rong-yeu-thuong"
+          : "rong-suy-nghi";
+
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 pb-28 pt-4 sm:px-6">
-      <header className="rise-in lg:col-span-2">
+      <header className="rise-in relative overflow-hidden rounded-clay bg-clay-surface p-5 pr-32 shadow-clay sm:p-6 sm:pr-48">
+        <Mascot
+          name={mascot}
+          className="absolute -bottom-2 right-1 w-32 sm:right-4 sm:w-44"
+        />
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-subtle">
           {greeting(now)} · {vnTime(now)}
         </p>
@@ -169,9 +183,9 @@ function EmptyDay({
   nextLabel?: string;
 }) {
   return (
-    <div className="rounded-clay bg-clay-surface px-5 py-8 text-center shadow-clay-sm">
-      <Sparkles className="mx-auto size-6 text-subtle" />
-      <p className="mt-3 font-display text-lg text-ink">Trống lịch giảng</p>
+    <div className="rounded-clay bg-clay-surface px-5 py-6 text-center shadow-clay-sm">
+      <Mascot name="rong-ngac-nhien" className="mx-auto w-36" />
+      <p className="mt-2 font-display text-lg text-ink">Trống lịch giảng</p>
       <p className="mt-1 text-sm text-muted">
         {nextLabel && nextDate
           ? `Buổi kế: ${nextLabel}`
