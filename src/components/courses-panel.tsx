@@ -2,9 +2,10 @@ import { useMemo, useState } from "react";
 import { ChevronDown, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Mascot } from "@/components/mascot";
+import { ScheduleImport } from "@/components/schedule-import";
 import {
+  ACTIVE_COURSES,
   ALL_OCCURRENCES,
-  COURSES,
   campusOf,
   periodLabel,
   remainingFrom,
@@ -17,7 +18,7 @@ import { cn } from "@/lib/utils";
 export function CoursesPanel({ now }: { now: Date }) {
   const today = dateKey(now);
   const filter = usePlanner((s) => s.campusFilter);
-  const courses = COURSES.filter((c) => filter === "all" || c.campus === filter);
+  const courses = ACTIVE_COURSES.filter((c) => filter === "all" || c.campus === filter);
 
   const remaining = remainingFrom(today, filter);
   const remainingByCourse = useMemo(() => {
@@ -74,6 +75,8 @@ export function CoursesPanel({ now }: { now: Date }) {
           );
         })}
       </div>
+
+      <ScheduleImport today={today} />
     </div>
   );
 }
