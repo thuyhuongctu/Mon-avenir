@@ -47,7 +47,7 @@ export function AppShell({
               Mon Avenir
             </p>
             <p className="mt-1 truncate text-xs text-muted">
-              {LECTURER.title} {LECTURER.name}
+              {LECTURER.tagline}
             </p>
           </div>
           <HuongAiBadge />
