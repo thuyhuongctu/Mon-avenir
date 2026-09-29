@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { CalendarSync } from "@/components/calendar-sync";
 import { TodoList } from "@/components/todo-list";
 import { occurrencesOn, suggestedTodos } from "@/lib/schedule";
 import { usePlanner } from "@/lib/store";
@@ -30,7 +31,7 @@ export function TodosPanel({ now }: { now: Date }) {
           Mỗi ngày một danh sách
         </h1>
         <p className="mt-2 text-sm text-muted">
-          Việc gắn với ngày. Lịch giảng tự gợi ý soạn bài và điểm danh.
+          Việc gắn với ngày. Lịch giảng tự gợi ý soạn bài và điểm danh. Bấm biểu tượng sổ tay để ghi chú và đặt giờ nhắc.
         </p>
       </header>
 
@@ -66,6 +67,8 @@ export function TodosPanel({ now }: { now: Date }) {
         <h2 className="mb-3 font-display text-xl tracking-tight">{prettyDate(selected)}</h2>
         <TodoList date={selected} suggestions={suggestedTodos(sessions)} />
       </div>
+
+      <CalendarSync today={today} />
     </div>
   );
 }

@@ -7,7 +7,13 @@ export type Todo = {
   id: string;
   text: string;
   done: boolean;
+  /** Giờ nhắc (HH:MM); bỏ trống = nhắc cả ngày. */
+  time?: string;
+  /** Ghi chú tay của người dùng. */
+  note?: string;
 };
+
+export type TodoPatch = Partial<Pick<Todo, "text" | "time" | "note">>;
 
 export type CampusFilter = CampusId | "all";
 
@@ -18,6 +24,8 @@ type PlannerState = {
   dayOverride: Record<string, boolean>;
   todos: Record<string, Todo[]>;
   seeded: Record<string, boolean>;
+  /** Ghi chú tay theo từng buổi dạy (khóa = occurrence id). */
+  sessionNotes: Record<string, string>;
   campusFilter: CampusFilter;
   toggleSession: (id: string, next: boolean) => void;
   clearSession: (id: string) => void;
@@ -26,6 +34,8 @@ type PlannerState = {
   addTodo: (date: string, text: string) => void;
   toggleTodo: (date: string, id: string) => void;
   removeTodo: (date: string, id: string) => void;
+  updateTodo: (date: string, id: string, patch: TodoPatch) => void;
+  setSessionNote: (id: string, note: string) => void;
   seedTodos: (date: string, texts: string[]) => void;
   setCampusFilter: (f: CampusFilter) => void;
   completeDayTodos: (date: string, done: boolean) => void;
@@ -38,6 +48,7 @@ export const usePlanner = create<PlannerState>()(
       dayOverride: {},
       todos: {},
       seeded: {},
+      sessionNotes: {},
       campusFilter: "all",
       toggleSession: (id, next) =>
         set((s) => ({
@@ -85,6 +96,22 @@ export const usePlanner = create<PlannerState>()(
             [date]: (s.todos[date] ?? []).filter((t) => t.id !== id),
           },
         })),
+      updateTodo: (date, id, patch) =>
+        set((s) => ({
+          todos: {
+            ...s.todos,
+            [date]: (s.todos[date] ?? []).map((t) =>
+              t.id === id ? { ...t, ...patch } : t,
+            ),
+          },
+        })),
+      setSessionNote: (id, note) =>
+        set((s) => {
+          const sessionNotes = { ...s.sessionNotes };
+          if (note.trim()) sessionNotes[id] = note;
+          else delete sessionNotes[id];
+          return { sessionNotes };
+        }),
       seedTodos: (date, texts) =>
         set((s) => {
           if (s.seeded[date]) return s;
