@@ -1,6 +1,9 @@
+import { useState } from "react";
 import {
+  CalendarPlus,
   Check,
   Clock3,
+  NotebookPen,
   MapPin,
   Monitor,
   Users,
@@ -15,6 +18,8 @@ import {
   roleLabel,
   type Occurrence,
 } from "@/lib/schedule";
+import { sessionGcalUrl } from "@/lib/gcal";
+import { usePlanner } from "@/lib/store";
 import { rangeLabel } from "@/lib/time";
 import { cn } from "@/lib/utils";
 
@@ -163,8 +168,59 @@ export function SessionCard({
               {conflicts.map((c) => `${c.code} (${c.groupCode})`).join(", ")}
             </p>
           )}
+
+          <SessionNote occ={occ} />
         </div>
       </div>
     </article>
+  );
+}
+
+function SessionNote({ occ }: { occ: Occurrence }) {
+  const note = usePlanner((s) => s.sessionNotes[occ.id]) ?? "";
+  const setSessionNote = usePlanner((s) => s.setSessionNote);
+  const [open, setOpen] = useState(false);
+
+  return (
+    <div className="mt-2.5">
+      <div className="flex flex-wrap items-center gap-2">
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-expanded={open}
+          className={cn(
+            "inline-flex h-9 items-center gap-1.5 rounded-clay-xs px-2.5 text-xs font-medium transition-colors",
+            open || note ? "bg-paper-2 text-accent" : "text-subtle hover:text-ink",
+          )}
+        >
+          <NotebookPen className="size-3.5" />
+          {note ? "Ghi chú" : "Thêm ghi chú"}
+        </button>
+        <a
+          href={sessionGcalUrl(occ, note)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex h-9 items-center gap-1.5 rounded-clay-xs px-2.5 text-xs font-medium text-subtle transition-colors hover:text-ink"
+        >
+          <CalendarPlus className="size-3.5" />
+          Google Calendar
+        </a>
+      </div>
+      {note && !open && (
+        <p className="mt-1 whitespace-pre-line rounded-clay-xs bg-paper-2/60 px-3 py-2 text-sm text-ink-soft">
+          {note}
+        </p>
+      )}
+      {open && (
+        <textarea
+          value={note}
+          onChange={(e) => setSessionNote(occ.id, e.target.value)}
+          placeholder="Nội dung dạy, bài tập giao, SV vắng…"
+          rows={3}
+          autoFocus
+          className="mt-1 w-full resize-y rounded-clay-xs bg-clay-inset px-3 py-2 text-sm text-ink shadow-clay-inset outline-none placeholder:text-subtle"
+        />
+      )}
+    </div>
   );
 }

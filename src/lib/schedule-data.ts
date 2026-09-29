@@ -32,6 +32,8 @@ export const LECTURER = {
   name: "Đỗ Thùy Hương",
   shortName: "Thùy Hương",
   title: "Giảng viên",
+  /** Tài khoản Google Calendar nhận nhắc việc & lịch giảng. */
+  calendarEmail: "huongdt@vlute.edu.vn",
 };
 
 export const CAMPUSES: Record<
