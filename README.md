@@ -2,12 +2,16 @@
 
 Lịch giảng, việc cần làm và môn học của Đỗ Thùy Hương (VLUTE · CTU) — phong cách **claymorphism ("3D đất sét")**, cùng ngôn ngữ thiết kế với [Chansonia](https://github.com/thuyhuongctu/Chansonia).
 
+**Mở app:** <https://thuyhuongctu.github.io/Mon-avenir/> — trên điện thoại, mở bằng Chrome rồi chọn *Thêm vào màn hình chính*.
+
 ## Tính năng
 
 - **Hôm nay** — buổi giảng trong ngày, trạng thái tự động (sắp tới / đang dạy / xong), tick tay khi cần.
 - **Tuần** — lịch tuần dạng lưới giờ, chuyển tuần trước/sau.
 - **Việc** — danh sách việc cần làm theo từng ngày, gợi ý tự động (soạn bài, điểm danh…) dựa trên buổi giảng.
 - **Môn** — tổng quan các môn đang dạy, số buổi còn lại, danh sách buổi theo môn.
+- **Ghi chú tay** — ghi chú cho từng việc và từng buổi dạy; đặt giờ nhắc cho việc.
+- **Google Calendar** (huongdt@vlute.edu.vn) — thêm từng việc/buổi dạy, hoặc xuất file `.ics` (lịch giảng, việc, ghi chú, kèm nhắc) để nhập vào lịch.
 
 Dữ liệu lưu cục bộ trên trình duyệt (`zustand/persist`), không cần đăng nhập hay máy chủ.
 
