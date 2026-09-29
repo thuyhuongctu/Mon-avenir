@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import { uid } from "./utils";
 import type { CampusId } from "./schedule-data";
+import type { ImportedSchedule } from "./import-schedule";
 
 export type Todo = {
   id: string;
@@ -26,6 +27,10 @@ type PlannerState = {
   seeded: Record<string, boolean>;
   /** Ghi chú tay theo từng buổi dạy (khóa = occurrence id). */
   sessionNotes: Record<string, string>;
+  /** Lịch nhập từ file (CSV/ICS). */
+  imports: ImportedSchedule[];
+  /** Ẩn lịch có sẵn trong code (khi đã nhập lịch học kỳ mới). */
+  hideBuiltin: boolean;
   campusFilter: CampusFilter;
   toggleSession: (id: string, next: boolean) => void;
   clearSession: (id: string) => void;
@@ -36,6 +41,9 @@ type PlannerState = {
   removeTodo: (date: string, id: string) => void;
   updateTodo: (date: string, id: string, patch: TodoPatch) => void;
   setSessionNote: (id: string, note: string) => void;
+  addImport: (imp: ImportedSchedule) => void;
+  removeImport: (id: string) => void;
+  setHideBuiltin: (hide: boolean) => void;
   seedTodos: (date: string, texts: string[]) => void;
   setCampusFilter: (f: CampusFilter) => void;
   completeDayTodos: (date: string, done: boolean) => void;
@@ -49,6 +57,8 @@ export const usePlanner = create<PlannerState>()(
       todos: {},
       seeded: {},
       sessionNotes: {},
+      imports: [],
+      hideBuiltin: false,
       campusFilter: "all",
       toggleSession: (id, next) =>
         set((s) => ({
@@ -112,6 +122,10 @@ export const usePlanner = create<PlannerState>()(
           else delete sessionNotes[id];
           return { sessionNotes };
         }),
+      addImport: (imp) => set((s) => ({ imports: [...s.imports, imp] })),
+      removeImport: (id) =>
+        set((s) => ({ imports: s.imports.filter((i) => i.id !== id) })),
+      setHideBuiltin: (hideBuiltin) => set({ hideBuiltin }),
       seedTodos: (date, texts) =>
         set((s) => {
           if (s.seeded[date]) return s;

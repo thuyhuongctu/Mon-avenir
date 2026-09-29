@@ -206,8 +206,12 @@ export function buildIcs(
 }
 
 /** Tải hoặc chia sẻ file .ics (Android WebView không hỗ trợ tải blob). */
-export async function saveIcs(content: string, filename: string) {
-  const file = new File([content], filename, { type: "text/calendar" });
+export function saveIcs(content: string, filename: string) {
+  return saveFile(content, filename, "text/calendar");
+}
+
+export async function saveFile(content: string, filename: string, type: string) {
+  const file = new File([content], filename, { type });
   if (navigator.canShare?.({ files: [file] })) {
     try {
       await navigator.share({ files: [file], title: filename });

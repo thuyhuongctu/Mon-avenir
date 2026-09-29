@@ -37,7 +37,12 @@ export type Occurrence = {
   week?: number;
 };
 
-const COURSE_MAP = Object.fromEntries(COURSES.map((c) => [c.id, c]));
+/* Lịch đang dùng = lịch có sẵn (schedule-data) + lịch nhập từ file.
+ * Dựng lại bằng setSchedule(); các biến `let` bên dưới là live binding. */
+let COURSE_MAP: Record<string, Course> = {};
+export let ACTIVE_COURSES: Course[] = [];
+export let ALL_OCCURRENCES: Occurrence[] = [];
+let BY_DATE = new Map<string, Occurrence[]>();
 
 function expandSlot(slot: Slot): Occurrence[] {
   const course = COURSE_MAP[slot.courseId];
@@ -78,16 +83,21 @@ function expandSlot(slot: Slot): Occurrence[] {
   }));
 }
 
-export const ALL_OCCURRENCES: Occurrence[] = SLOTS.flatMap(expandSlot).sort(
-  (a, b) => compareISO(a.date, b.date) || a.startMin - b.startMin,
-);
-
-const BY_DATE = new Map<string, Occurrence[]>();
-for (const occ of ALL_OCCURRENCES) {
-  const list = BY_DATE.get(occ.date);
-  if (list) list.push(occ);
-  else BY_DATE.set(occ.date, [occ]);
+export function setSchedule(courses: Course[], slots: Slot[]) {
+  ACTIVE_COURSES = courses;
+  COURSE_MAP = Object.fromEntries(courses.map((c) => [c.id, c]));
+  ALL_OCCURRENCES = slots
+    .flatMap(expandSlot)
+    .sort((a, b) => compareISO(a.date, b.date) || a.startMin - b.startMin);
+  BY_DATE = new Map();
+  for (const occ of ALL_OCCURRENCES) {
+    const list = BY_DATE.get(occ.date);
+    if (list) list.push(occ);
+    else BY_DATE.set(occ.date, [occ]);
+  }
 }
+
+setSchedule(COURSES, SLOTS);
 
 export function occurrencesOn(date: string): Occurrence[] {
   return BY_DATE.get(date) ?? [];
@@ -120,6 +130,7 @@ export function conflictsFor(occ: Occurrence, list: Occurrence[]): Occurrence[] 
 
 export function periodLabel(occ: Occurrence): string {
   if (occ.slotId === "vlute-kn-t7-bt") return "Ca 3 – 4";
+  if (occ.periods.length === 0) return "Theo giờ";
   if (occ.periods.length === 1 && occ.periods[0] === 11) return "Tiết 11";
   if (occ.periods.length === 1) return `Tiết ${occ.periods[0]}`;
   const first = occ.periods[0];
