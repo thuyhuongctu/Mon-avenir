@@ -187,3 +187,22 @@
 .rise-in:nth-child(8) {
   animation-delay: 280ms;
 }
+
+/* Hình đất sét (rồng, chân dung): bóng đổ mềm như tượng đặt trên giấy. */
+.clay-figure {
+  filter: drop-shadow(6px 10px 10px color-mix(in oklab, var(--color-ink) 22%, transparent));
+}
+
+@keyframes clay-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-1deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate(1deg);
+  }
+}
+
+.clay-float {
+  animation: clay-float 4.5s ease-in-out infinite;
+}

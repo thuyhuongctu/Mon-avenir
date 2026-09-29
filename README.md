@@ -4,6 +4,10 @@ Lịch giảng, việc cần làm và môn học của Đỗ Thùy Hương (VLUT
 
 **Mở app:** <https://thuyhuongctu.github.io/Mon-avenir/> — trên điện thoại, mở bằng Chrome rồi chọn *Thêm vào màn hình chính*.
 
+**App Android (APK):** mỗi khi code được gộp vào `main`, workflow *Build Android APK* tự build lại.
+Vào tab **Actions → Build Android APK → lần chạy mới nhất**, tải `mon-avenir-apk` ở mục *Artifacts*
+(cần đăng nhập GitHub), giải nén rồi cài `mon-avenir.apk` trên điện thoại.
+
 ## Tính năng
 
 - **Hôm nay** — buổi giảng trong ngày, trạng thái tự động (sắp tới / đang dạy / xong), tick tay khi cần.
@@ -17,10 +21,10 @@ Dữ liệu lưu cục bộ trên trình duyệt (`zustand/persist`), không c�
 
 ## Thương hiệu
 
-Huy hiệu **Hương AI** ở góc trên bên phải là nhân vật đồng hành của hệ sinh thái
-[«Je m'appelle Hương»](https://thuyhuongctu.github.io/Je-mappelle-Huong/) —
-chỉ mang tính thương hiệu/trang trí, không phải trợ lý chat. Ảnh (`public/brand/huong-ai.webp`)
-và màu hồng sen (`--color-brand`) lấy từ repo gốc `thuyhuongctu/Je-mappelle-Huong`.
+Huy hiệu **Hương AI** ở góc trên bên phải là chân dung đất sét của Thùy Hương, nhân vật đồng hành của hệ sinh thái
+[«Je m'appelle Hương»](https://thuyhuongctu.github.io/Je-mappelle-Huong/) — chỉ mang tính thương hiệu/trang trí,
+không phải trợ lý chat. Ảnh đất sét trong `public/brand/`: `huong-chan-dung.webp`, `huong-aodai.webp` và năm tư thế
+rồng xanh (`rong-*.webp`) dùng ở thẻ chào, trạng thái trống và đầu các tab.
 
 ## Phát triển
 

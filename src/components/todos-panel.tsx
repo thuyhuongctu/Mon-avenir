@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { CalendarSync } from "@/components/calendar-sync";
+import { Mascot } from "@/components/mascot";
 import { TodoList } from "@/components/todo-list";
 import { occurrencesOn, suggestedTodos } from "@/lib/schedule";
 import { usePlanner } from "@/lib/store";
@@ -23,7 +24,8 @@ export function TodosPanel({ now }: { now: Date }) {
 
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-5 px-4 pb-28 pt-4 sm:px-6">
-      <header>
+      <header className="relative overflow-hidden rounded-clay bg-clay-surface p-5 pr-28 shadow-clay sm:pr-40">
+        <Mascot name="rong-hoc-gia" className="absolute -bottom-1 right-1 w-28 sm:w-36" />
         <p className="text-xs font-medium uppercase tracking-[0.16em] text-subtle">
           Việc cần làm
         </p>
