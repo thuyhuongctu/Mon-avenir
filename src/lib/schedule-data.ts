@@ -61,14 +61,18 @@ export const SEMESTER = "Học kỳ 1";
 
 export const CTU_PERIODS: Record<number, { start: string; end: string }> = {
   1: { start: "07:00", end: "07:50" },
-  2: { start: "08:00", end: "08:50" },
-  3: { start: "09:00", end: "09:50" },
-  4: { start: "10:00", end: "10:50" },
-  5: { start: "11:00", end: "11:50" },
+  2: { start: "07:50", end: "08:40" },
+  3: { start: "08:50", end: "09:40" },
+  4: { start: "09:50", end: "10:40" },
+  5: { start: "10:40", end: "11:30" },
   6: { start: "13:00", end: "13:50" },
-  7: { start: "14:00", end: "14:50" },
-  8: { start: "15:00", end: "15:50" },
-  9: { start: "16:00", end: "16:50" },
+  7: { start: "13:50", end: "14:40" },
+  8: { start: "14:50", end: "15:40" },
+  9: { start: "15:50", end: "16:40" },
+  10: { start: "16:40", end: "17:30" },
+  11: { start: "18:15", end: "19:05" },
+  12: { start: "19:05", end: "19:55" },
+  13: { start: "20:05", end: "20:55" },
 };
 
 export const COURSES: Course[] = [
