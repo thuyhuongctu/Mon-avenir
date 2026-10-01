@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { ChevronDown, GraduationCap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Mascot } from "@/components/mascot";
+import { CtuPeriodsCard } from "@/components/ctu-periods";
 import { ScheduleImport } from "@/components/schedule-import";
 import {
   ACTIVE_COURSES,
@@ -75,6 +76,8 @@ export function CoursesPanel({ now }: { now: Date }) {
           );
         })}
       </div>
+
+      {filter !== "vlute" && <CtuPeriodsCard now={now} />}
 
       <ScheduleImport today={today} />
     </div>
