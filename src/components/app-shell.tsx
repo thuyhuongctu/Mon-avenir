@@ -4,6 +4,7 @@ import {
   CalendarDays,
   CheckSquare,
   Sun,
+  Wallet,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { HuongAiBadge } from "@/components/huong-ai-badge";
@@ -11,13 +12,14 @@ import { CAMPUSES, LECTURER } from "@/lib/schedule-data";
 import { usePlanner, type CampusFilter } from "@/lib/store";
 import { cn } from "@/lib/utils";
 
-export type TabId = "today" | "week" | "todos" | "courses";
+export type TabId = "today" | "week" | "todos" | "courses" | "loans";
 
 const TABS: { id: TabId; label: string; icon: typeof Sun }[] = [
   { id: "today", label: "Hôm nay", icon: Sun },
   { id: "week", label: "Tuần", icon: CalendarDays },
   { id: "todos", label: "Việc", icon: CheckSquare },
   { id: "courses", label: "Môn", icon: BookOpen },
+  { id: "loans", label: "Nợ vay", icon: Wallet },
 ];
 
 const FILTERS: { id: CampusFilter; label: string }[] = [
@@ -56,23 +58,25 @@ export function AppShell({
             <Badge tone="ctu">{CAMPUSES.ctu.role}</Badge>
           </div>
         </div>
-        <div className="mx-auto flex max-w-6xl gap-2 px-4 pb-3 sm:px-6">
-          {FILTERS.map((f) => (
-            <button
-              key={f.id}
-              type="button"
-              onClick={() => setFilter(f.id)}
-              className={cn(
-                "rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-150",
-                filter === f.id
-                  ? "bg-ink text-paper shadow-clay-sm"
-                  : "bg-paper-2 text-muted hover:text-ink",
-              )}
-            >
-              {f.label}
-            </button>
-          ))}
-        </div>
+        {tab !== "loans" && (
+          <div className="mx-auto flex max-w-6xl gap-2 px-4 pb-3 sm:px-6">
+            {FILTERS.map((f) => (
+              <button
+                key={f.id}
+                type="button"
+                onClick={() => setFilter(f.id)}
+                className={cn(
+                  "rounded-full px-3 py-1.5 text-xs font-medium transition-all duration-150",
+                  filter === f.id
+                    ? "bg-ink text-paper shadow-clay-sm"
+                    : "bg-paper-2 text-muted hover:text-ink",
+                )}
+              >
+                {f.label}
+              </button>
+            ))}
+          </div>
+        )}
       </header>
 
       <main className="min-h-0">{children}</main>
@@ -89,7 +93,7 @@ export function AppShell({
               type="button"
               onClick={() => onTab(id)}
               className={cn(
-                "flex flex-1 flex-col items-center gap-0.5 rounded-clay-xs px-3 py-1.5 text-[11px] font-medium transition-all duration-150 sm:flex-none sm:px-4",
+                "flex flex-1 flex-col items-center gap-0.5 rounded-clay-xs px-2 py-1.5 text-[11px] font-medium transition-all duration-150 sm:flex-none sm:px-4",
                 active
                   ? "bg-clay-accent-inset text-accent-fg shadow-clay-inset"
                   : "text-subtle hover:text-ink",

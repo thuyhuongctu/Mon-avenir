@@ -22,6 +22,9 @@ Vào tab **Actions → Build Android APK → lần chạy mới nhất**, tải 
 - **Nhập lịch từ file** (tab Môn) — thêm lịch học kỳ mới từ file `.csv` (Excel → *Lưu thành CSV UTF-8*) hoặc `.ics`
   (Google Calendar, Outlook). Có file mẫu CSV; cột nhận diện: Mã HP, Tên học phần, Nhóm, Lớp, Sĩ số, Thứ, Tiết,
   Bắt đầu, Kết thúc, Phòng, Tuần (`1-12`, `1,5,9`, `38-39-40`), Ngày (`16/09, 23/09`), Loại. Có thể ẩn lịch có sẵn.
+- **Nợ vay** — tính lịch trả nợ (trả góp đều, dư nợ giảm dần, lãi phẳng; có ân hạn gốc), lưu nhiều khoản vay,
+  ghi nhận từng lần trả (một chạm "Đã trả kỳ này" hoặc nhập số khác), theo dõi kỳ tới / quá hạn / dư nợ còn lại,
+  mô phỏng trả trước một phần (rút ngắn kỳ hạn hoặc giảm tiền mỗi kỳ, có phí) và ước tính số tiền tất toán.
 
 Dữ liệu lưu cục bộ trên trình duyệt (`zustand/persist`), không cần đăng nhập hay máy chủ.
 
