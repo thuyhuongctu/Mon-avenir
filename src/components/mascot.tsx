@@ -9,6 +9,8 @@ export type MascotName =
   | "rong-ngac-nhien"
   | "rong-suy-nghi"
   | "rong-yeu-thuong"
+  | "rong-cup"
+  | "rong-sen"
   | "huong-aodai";
 
 const ALT: Record<MascotName, string> = {
@@ -17,6 +19,8 @@ const ALT: Record<MascotName, string> = {
   "rong-ngac-nhien": "Rồng đất sét ngạc nhiên",
   "rong-suy-nghi": "Rồng đất sét đang suy nghĩ",
   "rong-yeu-thuong": "Rồng đất sét thả tim",
+  "rong-cup": "Rồng đất sét ôm cúp vàng",
+  "rong-sen": "Rồng đất sét ôm hoa sen hồng",
   "huong-aodai": "Thùy Hương mặc áo dài trắng cầm hoa sen",
 };
 

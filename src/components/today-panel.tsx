@@ -80,7 +80,7 @@ export function TodayPanel({ now }: { now: Date }) {
 
   const mascot: MascotName =
     dayComplete && sessions.length > 0
-      ? "rong-co-vu"
+      ? "rong-cup"
       : upcoming
         ? "rong-hoc-gia"
         : sessions.length > 0
