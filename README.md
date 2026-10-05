@@ -43,3 +43,9 @@ npm run build    # kiểm tra kiểu + build production vào dist/
 ## Triển khai
 
 Đẩy lên nhánh `main` sẽ tự động build và xuất bản qua GitHub Pages (`.github/workflows/deploy-pages.yml`).
+
+> **Lưu ý — app bị chuyển sang BizOn?** GitHub Pages (gói Free) chỉ xuất bản repo **công khai**. Khi repo này để
+> *Private*, trang `/Mon-avenir/` bị gỡ và trả lỗi 404; trang 404 chung của `thuyhuongctu.github.io` khi đó chuyển
+> mọi đường dẫn lạ sang `/BizOn/`. Cách sửa: *Settings → General → Change visibility → Public*, rồi
+> *Settings → Pages → Source: GitHub Actions* và chạy lại workflow *Deploy web app to GitHub Pages*
+> (*Actions → Run workflow*). Bản APK Android không bị ảnh hưởng vì chạy file cục bộ.
