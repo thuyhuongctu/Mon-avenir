@@ -206,3 +206,20 @@
 .clay-float {
   animation: clay-float 4.5s ease-in-out infinite;
 }
+
+/* Vòng thở ở tab Thư giãn: 4 giây hít vào (nở ra), 6 giây thở ra (thu lại). */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(0.72);
+    opacity: 0.7;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.breathe {
+  animation: breathe 10s ease-in-out infinite;
+}

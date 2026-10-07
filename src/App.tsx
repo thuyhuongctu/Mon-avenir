@@ -1,6 +1,8 @@
 import { useMemo, useState } from "react";
 import { AppShell, type TabId } from "@/components/app-shell";
 import { CoursesPanel } from "@/components/courses-panel";
+import { LoansPanel } from "@/components/loans-panel";
+import { RelaxPanel } from "@/components/relax-panel";
 import { TodayPanel } from "@/components/today-panel";
 import { TodosPanel } from "@/components/todos-panel";
 import { WeekPanel } from "@/components/week-panel";
@@ -33,6 +35,8 @@ export default function App() {
       {tab === "week" && <WeekPanel key={scheduleKey} now={now} />}
       {tab === "todos" && <TodosPanel key={scheduleKey} now={now} reminders={reminders} />}
       {tab === "courses" && <CoursesPanel key={scheduleKey} now={now} />}
+      {tab === "loans" && <LoansPanel now={now} />}
+      {tab === "relax" && <RelaxPanel />}
     </AppShell>
   );
 }
