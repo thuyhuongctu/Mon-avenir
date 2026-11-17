@@ -2,7 +2,7 @@
 
 Lịch giảng, việc cần làm và môn học của Đỗ Thùy Hương (VLUTE · CTU) — phong cách **claymorphism ("3D đất sét")**, cùng ngôn ngữ thiết kế với [Chansonia](https://github.com/thuyhuongctu/Chansonia).
 
-**Mở app:** <https://thuyhuongctu.github.io/Mon-avenir/> — trên điện thoại, mở bằng Chrome rồi chọn *Thêm vào màn hình chính*.
+**Mở app:** <https://avenir.jemappellehuong.com/> — trên điện thoại, mở bằng Chrome rồi chọn *Thêm vào màn hình chính*.
 
 **App Android (APK):** mỗi khi code được gộp vào `main`, workflow *Build Android APK* tự build lại.
 Vào tab **Actions → Build Android APK → lần chạy mới nhất**, tải `mon-avenir-apk` ở mục *Artifacts*
